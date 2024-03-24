@@ -1,0 +1,1 @@
+hashcat -m 2500 handshake.cap /usr/share/wordlists/rockyou.txt
