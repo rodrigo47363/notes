@@ -1,0 +1,12 @@
+```bash
+sudo apt-get install libpcap-dev
+sudo apt-get install python2.7-dev libssl-dev zlib1g-dev
+libpcap-dev
+git clone https://github.com/JPaulMora/Pyrit.git
+cd Pyrit
+sudo python2 setup.py clean
+sudo python2 setup.py build
+sudo python2 setup.py install
+```
+
+**Nota:** Si tratas de hacer este último paso solo poniendo Python, intenta con el python 3 y marca un error. Usa python2.
