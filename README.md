@@ -19,7 +19,7 @@ Contributions are welcome! If you have suggestions, improvements or new tools to
 
 ## Contact us
 
-If you need help or have questions related to the content of this repository, you can contact me via [email](Rodrigovil@proton.me) or on [Twitter](https://twitter.com/tuusuario).
+If you need help or have questions related to the content of this repository, you can contact me via [email]() or on [Twitter](https://twitter.com/).
 
 ---
 
@@ -45,6 +45,6 @@ Puedes explorar las diferentes carpetas para acceder a las notas y scripts espec
 
 ## Contacto
 
-Si necesitas ayuda o tienes preguntas relacionadas con el contenido de este repositorio, puedes contactarme a través de [correo electrónico](Rodrigovil@proton.me) o en [Twitter](https://twitter.com/tuusuario).
+Si necesitas ayuda o tienes preguntas relacionadas con el contenido de este repositorio, puedes contactarme a través de [correo electrónico]() o en [Twitter]().
 
 ---
