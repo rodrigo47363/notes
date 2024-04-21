@@ -1,3 +1,3 @@
 nmap --script http-enum -p80 127.0.0.1 -oN webscan 
 nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 127.0.0.1 -oN escaneo
-nmap -p- --open -sS --min-rate 5000 -vvv -n Pn -oG allPorts
+nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn  127.0.0.1 -oG allPorts
