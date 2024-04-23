@@ -1,0 +1,1 @@
+./sqlmap.py --tor --tor-type=SOCKS5 -u "<URL>"
