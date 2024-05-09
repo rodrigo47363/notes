@@ -1,5 +1,3 @@
-Aquí tienes la combinación de ambos textos:
-
 ## Procedimiento para Modificar Contraseñas en Windows desde un Entorno de Arranque Seguro y Pentesting
 
 Este procedimiento detalla los pasos necesarios para modificar contraseñas en sistemas Windows desde un entorno de pentesting utilizando herramientas como Kali Linux o Parrot OS.
