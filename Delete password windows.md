@@ -14,7 +14,7 @@ Este procedimiento detalla los pasos necesarios para modificar contraseñas en s
 - Accede a la ruta `C:\Windows\System32\config` en el disco de Windows.
 
 ### 4. Manipulación de Contraseñas con chntpw:
-- Abre una terminal y ejecuta `sudo chntpwb-l` para listar todos los usuarios del sistema.
+- Abre una terminal y ejecuta `sudo chntpw -l SAM` para listar todos los usuarios del sistema.
 - Utiliza `sudo chntpw -u usuario SAM` para seleccionar el usuario cuya contraseña deseas modificar.
 
 #### Opción 1: Eliminar la Contraseña
