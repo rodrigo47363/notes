@@ -1,0 +1,84 @@
+# Guía de Uso de OneShot.py
+
+## Descripción
+`oneshot.py` es una herramienta diseñada para llevar a cabo ataques de WPS (Wi-Fi Protected Setup) en redes Wi-Fi, aprovechando vulnerabilidades conocidas como el ataque Pixie Dust.
+
+## Requisitos Previos
+1. **Privilegios de superusuario:** Necesitarás ejecutar el script con privilegios de superusuario (`sudo`).
+2. **Instalación de Dependencias:** Asegúrate de tener las herramientas necesarias instaladas, como `pixiewps`.
+
+## Ejecución Básica
+
+Para usar el script, abre una terminal y navega al directorio donde se encuentra `oneshot.py`. La ejecución básica del script con algunas opciones comunes sería:
+
+```bash
+sudo python oneshot.py -i wlan0 -K -F
+```
+
+En este ejemplo:
+- `-i wlan0`: Especifica la interfaz de red inalámbrica a usar (cámbiala según tu interfaz).
+- `-K`: Ejecuta el ataque Pixie Dust.
+- `-F`: Ejecuta `pixiewps` con la opción `--force` para un ataque de fuerza bruta.
+
+## Opciones Disponibles
+
+Aquí hay una lista de las opciones disponibles y sus descripciones:
+
+- `-h, --help`: Muestra la ayuda y sale.
+- `-i INTERFACE, --interface INTERFACE`: Nombre de la interfaz a usar.
+- `-b BSSID, --bssid BSSID`: BSSID del punto de acceso objetivo.
+- `-p PIN, --pin PIN`: Usa el pin especificado (cadena arbitraria o pin de 4/8 dígitos).
+- `-K, --pixie-dust`: Ejecuta el ataque Pixie Dust.
+- `-F, --pixie-force`: Ejecuta `pixiewps` con la opción `--force` (fuerza bruta completa).
+- `-X, --show-pixie-cmd`: Siempre muestra el comando de `pixiewps`.
+- `-B, --bruteforce`: Ejecuta un ataque de fuerza bruta en línea.
+- `--pbc, --push-button-connect`: Ejecuta la conexión WPS con botón pulsador.
+- `-d DELAY, --delay DELAY`: Establece el retraso entre intentos de pin.
+- `-w, --write`: Escribe las credenciales en un archivo al tener éxito.
+- `--iface-down`: Baja la interfaz de red cuando el trabajo ha terminado.
+- `--vuln-list VULN_LIST`: Usa un archivo personalizado con la lista de dispositivos vulnerables.
+- `-l, --loop`: Ejecuta en bucle.
+- `-r, --reverse-scan`: Invierte el orden de las redes en la lista de redes. Útil en pantallas pequeñas.
+- `--mtk-wifi`: Activa el controlador de interfaz Wi-Fi MediaTek al iniciar y lo desactiva al salir (para adaptadores Wi-Fi internos implementados en SoCs de MediaTek). Apaga el Wi-Fi en la configuración del sistema antes de usar esto.
+- `-v, --verbose`: Salida detallada.
+
+## Ejemplos de Uso
+
+### Escaneo Básico y Ataque Pixie Dust
+
+```bash
+sudo python oneshot.py -i wlan0 -K
+```
+
+### Ataque Pixie Dust con Fuerza Bruta Completa
+
+```bash
+sudo python oneshot.py -i wlan0 -K -F
+```
+
+### Especificando un BSSID Objetivo
+
+```bash
+sudo python oneshot.py -i wlan0 -b 00:11:22:33:44:55 -K
+```
+
+### Ataque de Fuerza Bruta en Línea
+
+```bash
+sudo python oneshot.py -i wlan0 -B
+```
+
+### Ejecución en Bucle con Salida Detallada
+
+```bash
+sudo python oneshot.py -i wlan0 -K -l -v
+```
+
+## Consideraciones de Seguridad
+
+Es importante usar estas herramientas de manera ética y legal. Sólo debes ejecutar ataques en redes para las que tengas permiso explícito. El uso indebido de estas herramientas puede llevar a consecuencias legales graves.
+
+## Resumen
+
+El script `oneshot.py` es una herramienta poderosa para auditar la seguridad de redes Wi-Fi utilizando vulnerabilidades de WPS. Siguiendo esta guía, puedes realizar escaneos y ataques dirigidos de manera eficiente.
+```
