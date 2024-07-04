@@ -1,1 +1,2 @@
 ./sqlmap.py --tor --tor-type=SOCKS5 -u "<URL>"
+sqlmap --url https --dbs --batch --forms --flush-session
