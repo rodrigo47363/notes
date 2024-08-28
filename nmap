@@ -1,3 +1,97 @@
-nmap --script http-enum -p80 127.0.0.1 -oN webscan 
+### Nmap: Escaneo Completo de Servicios y Puertos
+
+#### Comando:
+
+```bash
+nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn -sV -A 127.0.0.1 -oN escaneo_completo
+```
+
+#### Descripción:
+
+Este comando realiza un escaneo exhaustivo de todos los puertos TCP en la dirección IP `127.0.0.1`, detectando no solo los puertos abiertos sino también identificando los servicios y sus versiones, así como el sistema operativo. También ejecuta scripts adicionales para detectar vulnerabilidades y otros detalles del sistema.
+
+#### Detalles del Comando:
+
+- **`-p-`**: Escanea todos los puertos TCP (1-65535).
+- **`--open`**: Muestra solo los puertos abiertos.
+- **`-sS`**: Realiza un escaneo SYN, más rápido y sigiloso.
+- **`--min-rate 5000`**: Establece una tasa mínima de 5000 paquetes por segundo.
+- **`-vvv`**: Modo muy verboso, proporcionando detalles extensos.
+- **`-n`**: Omite la resolución de nombres DNS.
+- **`-Pn`**: Omite la verificación de host activo (ping).
+- **`-sV`**: Detecta la versión de los servicios en los puertos abiertos.
+- **`-A`**: Activa la detección avanzada, incluyendo sistema operativo y ejecución de scripts.
+- **`-oN escaneo_completo`**: Guarda la salida en el archivo `escaneo_completo` en formato legible.
+
+---
+
+### Nmap: Escaneo de Vulnerabilidades y Puertos Abiertos
+
+#### 1. Escaneo de Enumeración HTTP
+
+**Comando:**
+
+```bash
+nmap --script http-enum -p 80 127.0.0.1 -oN webscan
+```
+
+**Descripción:**
+
+Este comando realiza un escaneo en el puerto 80 de la dirección IP `127.0.0.1`, utilizando el script `http-enum` para enumerar posibles directorios y archivos en el servidor web. El resultado se guarda en un archivo llamado `webscan`.
+
+**Detalles:**
+
+- **`--script http-enum`**: Enumera rutas comunes en servidores web.
+- **`-p 80`**: Especifica el puerto 80 (HTTP).
+- **`127.0.0.1`**: Dirección IP de la máquina local.
+- **`-oN webscan`**: Guarda la salida en el archivo `webscan`.
+
+---
+
+#### 2. Escaneo Completo de Puertos TCP
+
+**Comando:**
+
+```bash
 nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 127.0.0.1 -oN escaneo
-nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn  127.0.0.1 -oG allPorts
+```
+
+**Descripción:**
+
+Este comando escanea todos los puertos TCP (`-p-`) en la dirección IP `127.0.0.1`, mostrando solo aquellos que están abiertos (`--open`). La salida se guarda en un archivo llamado `escaneo`.
+
+**Detalles:**
+
+- **`-p-`**: Escanea todos los puertos TCP (1-65535).
+- **`--open`**: Muestra solo los puertos abiertos.
+- **`-sS`**: Realiza un escaneo SYN.
+- **`--min-rate 5000`**: Acelera el escaneo.
+- **`-vvv`**: Modo muy verboso.
+- **`-n`**: Omite la resolución de DNS.
+- **`-Pn`**: Omite el ping previo al escaneo.
+- **`-oN escaneo`**: Guarda la salida en el archivo `escaneo`.
+
+---
+
+#### 3. Escaneo de Todos los Puertos con Formato de Salida Grepable
+
+**Comando:**
+
+```bash
+nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 127.0.0.1 -oG allPorts
+```
+
+**Descripción:**
+
+Este comando es similar al escaneo completo de puertos TCP, pero la salida se guarda en un formato grepable (`-oG`), ideal para análisis y automatización posterior. La salida se almacena en un archivo llamado `allPorts`.
+
+**Detalles:**
+
+- **`-p-`**: Escanea todos los puertos TCP (1-65535).
+- **`--open`**: Muestra solo los puertos abiertos.
+- **`-sS`**: Realiza un escaneo SYN.
+- **`--min-rate 5000`**: Acelera el escaneo.
+- **`-vvv`**: Modo muy verboso.
+- **`-n`**: Omite la resolución de DNS.
+- **`-Pn`**: Omite la verificación de host activo.
+- **`-oG allPorts`**: Guarda la salida en formato grepable en `allPorts`.
