@@ -8,19 +8,19 @@ nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn -sV -A 127.0.0.1 -oN escaneo_com
 
 #### Descripción:
 
-Este comando realiza un escaneo exhaustivo de todos los puertos TCP en la dirección IP `127.0.0.1`, detectando no solo los puertos abiertos sino también identificando los servicios y sus versiones, así como el sistema operativo. También ejecuta scripts adicionales para detectar vulnerabilidades y otros detalles del sistema.
+Este comando realiza un escaneo exhaustivo de todos los puertos TCP en la dirección IP `127.0.0.1`. Detecta no solo los puertos abiertos, sino que también identifica los servicios y sus versiones, así como el sistema operativo. Además, ejecuta scripts adicionales para detectar vulnerabilidades y obtener otros detalles del sistema.
 
 #### Detalles del Comando:
 
 - **`-p-`**: Escanea todos los puertos TCP (1-65535).
 - **`--open`**: Muestra solo los puertos abiertos.
-- **`-sS`**: Realiza un escaneo SYN, más rápido y sigiloso.
+- **`-sS`**: Realiza un escaneo SYN, que es más rápido y sigiloso.
 - **`--min-rate 5000`**: Establece una tasa mínima de 5000 paquetes por segundo.
 - **`-vvv`**: Modo muy verboso, proporcionando detalles extensos.
 - **`-n`**: Omite la resolución de nombres DNS.
 - **`-Pn`**: Omite la verificación de host activo (ping).
 - **`-sV`**: Detecta la versión de los servicios en los puertos abiertos.
-- **`-A`**: Activa la detección avanzada, incluyendo sistema operativo y ejecución de scripts.
+- **`-A`**: Activa la detección avanzada, que incluye la identificación del sistema operativo y la ejecución de scripts.
 - **`-oN escaneo_completo`**: Guarda la salida en el archivo `escaneo_completo` en formato legible.
 
 ---
@@ -95,3 +95,66 @@ Este comando es similar al escaneo completo de puertos TCP, pero la salida se gu
 - **`-n`**: Omite la resolución de DNS.
 - **`-Pn`**: Omite la verificación de host activo.
 - **`-oG allPorts`**: Guarda la salida en formato grepable en `allPorts`.
+
+---
+
+### Comandos Básicos de Nmap
+
+#### 1. Escaneo Básico
+
+```bash
+nmap -sV [host]    # Detección de versiones, escaneo por defecto
+nmap -sS [host]    # Escaneo sigiloso SYN
+nmap -sU [host]    # Escaneo UDP
+nmap -sT [host]    # Escaneo TCP Connect()
+nmap -sN [host]    # Escaneo TCP Null
+nmap -sF [host]    # Escaneo TCP FIN
+```
+
+#### 2. Descubrimiento de Hosts
+
+```bash
+nmap -sL [host/network] # Escaneo de listado - Descubrir objetivos consultando DNS o targets en una red
+nmap -sn [host/network]  # Escaneo de ping - Determinar si los hosts están activos
+nmap -Pn [host/network]  # Omite el descubrimiento de hosts
+```
+
+#### 3. Escaneo de Puertos
+
+```bash
+nmap -sC [host]          # Escaneo de scripts - Ejecutar scripts por defecto de Nmap
+nmap -p [ports] [host]   # Escanear puertos específicos
+nmap -F [host]           # Escaneo rápido - Escanear los puertos más comúnmente utilizados
+```
+
+#### 4. Escaneo Publicitario
+
+```bash
+nmap -oA [filename] [host]   # Guardar escaneo en todos los formatos
+nmap -O [host]                # Probar huellas del sistema operativo
+nmap [host] --traceroute      # Rastrear saltos hacia el host
+```
+
+#### 5. Detección de Versiones
+
+```bash
+nmap -sV [host]   # Mostrar versiones de servicios y OS
+nmap -A [host]    # Escaneo avanzado - Detección de OS y versión de servicio, y escaneo de scripts
+nmap --script [name] [host] // Ejecutar un script personalizado
+```
+
+#### 6. Opciones de Temporización
+
+```bash
+nmap -T[0-5] [host]  # Temporización para escaneos
+```
+
+#### 7. Evasión de Firewall/IDS
+
+```bash
+nmap --spoof-mac [address] // Cambiar dirección MAC fuente
+nmap -D RND:10 [host]  // Escaneo de señuelo - Aparecer como si escanearas desde múltiples hosts
+nmap -f                  // Paquetes fragmentados - Fragmentar paquetes
+nmap -Pn [host]         // Omite el descubrimiento de hosts
+nmap --data-length [length] // Añadir datos aleatorios a los paquetes
+```
