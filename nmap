@@ -1,4 +1,4 @@
-## Nmap: Escaneo Completo de Servicios y Puertos ##
+## Nmap: Escaneo Completo de Servicios y Puertos 
 
 #### Comando:
 
@@ -149,7 +149,7 @@ nmap --script [name] [host] // Ejecutar un script personalizado
 nmap -T[0-5] [host]  # Temporización para escaneos
 ```
 
-#### 7. Evasión de Firewall/IDS
+## 7. Evasión de Firewall/IDS
 
 ```bash
 nmap --spoof-mac [address] // Cambiar dirección MAC fuente
