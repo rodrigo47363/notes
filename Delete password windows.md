@@ -27,9 +27,7 @@
 [![HackTheBox Referral](https://img.shields.io/badge/Join_HackTheBox-9FEF00?style=for-the-badge\&logo=hackthebox\&logoColor=black)](https://referral.hackthebox.com/mz7ZtlJ)
 [![TryHackMe Referral](https://img.shields.io/badge/Join_TryHackMe-212C42?style=for-the-badge\&logo=tryhackme\&logoColor=white)](https://tryhackme.com/signup?referrer=64f0d7665fde58f3ec71379b)
 
-Perfecto, Rodrigo. Para que la sección de **“Support My Work”** se vea más profesional y ordenada en GitHub, podemos mejorar la estructura usando **tarjetas alineadas y centradas**, con íconos y etiquetas claras. También podemos separar los links de dirección de la billetera en un bloque limpio debajo para que no se mezcle con los botones. Aquí te dejo una versión pulida:
 
----
 
 ## 💖 Support My Work
 
